@@ -6,7 +6,7 @@
 /*   By: rdoukali <rdoukali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 21:32:39 by rdoukali          #+#    #+#             */
-/*   Updated: 2023/05/15 21:59:34 by rdoukali         ###   ########.fr       */
+/*   Updated: 2023/05/15 23:04:01 by rdoukali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,9 +102,10 @@ char	**ft_builtin(char *line, char **env, t_mnsh *minishell)
 	char	**new;
 
 	path = ft_extr_path(line, env, minishell);
+	ft_chkblt(line, env, minishell);
 	if (ft_strncmp(line, "export", 6) == 0
 		|| ft_strncmp(line, "unset", 5) == 0)
-		ft_chkblt2(line, env, minishell);
+		env = ft_chkblt2(line, env, minishell);
 	else
 		ft_chkblt3(line, env, path, minishell);
 	return (env);
