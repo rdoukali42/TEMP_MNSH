@@ -6,7 +6,7 @@
 /*   By: rdoukali <rdoukali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 20:42:14 by rdoukali          #+#    #+#             */
-/*   Updated: 2023/05/16 23:01:55 by rdoukali         ###   ########.fr       */
+/*   Updated: 2023/05/17 00:00:16 by rdoukali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ int	ft_count_words(char *str)
 		if (str[i] == ' ' || str[i] == '\n'
 			|| str[i] == '\t' || str[i] == '\'' || str[i] == '\"')
 		{
+			while(str[i] == ' ' || str[i] == '\n' || str[i] == '\t')
+				i++;
 			if (str[i] == '\'' || str[i] == '\"')
 				ft_count_words_helper(&count, &i, str);
 			else if (j > 0)
@@ -63,6 +65,8 @@ int	ft_count_words(char *str)
 		}
 		else
 			j++;
+		if (!str[i])
+			break ;
 		i++;
 	}
 	if (j > 0)
@@ -79,7 +83,8 @@ char	**ft_split_whitespaces(char *str, t_mnsh *minishell)
 	ft_setenv_helper(&(vars.i), &(vars.j), &(vars.k));
 	tab = my_malloc(&minishell->memory_blocks,
 			sizeof(char *) * (ft_count_words(str) + 1));
-	while (str[vars.i] != '\0')
+	// dprintf(2, "[%d]\n", ft_count_words(str));
+	while (str[vars.i] != '\0' && vars.j < ft_count_words(str))
 	{
 		while (str[vars.i] == ' ' || str[vars.i] == '\t' || str[vars.i] == '\n')
 			(vars.i)++;
@@ -165,7 +170,7 @@ char	**ft_split_whitepipe(char *str, t_mnsh *minishell)
 	ft_setenv_helper(&(vars.i), &(vars.j), &(vars.k));
 	tab = my_malloc(&minishell->memory_blocks,
 			sizeof(char *) * (ft_count_words2(str) + 1));
-	dprintf(2, "LEN :: %d\n", ft_count_words2(str));
+	// dprintf(2, "LEN :: %d\n", ft_count_words2(str));
 	while (str[vars.i] != '\0')
 	{
 		if (str[vars.i] == '|')
@@ -174,7 +179,7 @@ char	**ft_split_whitepipe(char *str, t_mnsh *minishell)
 		{
 			tab[vars.j] = my_malloc(&minishell->memory_blocks,
 					sizeof(char) * (ft_count_word_len2(str, vars.i) + 1));
-			dprintf(2, "LEN 2:: %d\n", ft_count_word_len2(str, vars.i));
+			// dprintf(2, "LEN 2:: %d\n", ft_count_word_len2(str, vars.i));
 			ft_split_whitespaces_helper1(&vars, tab, str);
 		// dprintf(2 ,"TAB is : %s\n", tab[vars.j]);
 		}
@@ -182,7 +187,7 @@ char	**ft_split_whitepipe(char *str, t_mnsh *minishell)
 		{
 			tab[vars.j] = my_malloc(&minishell->memory_blocks,
 					sizeof(char) * (ft_count_word_len2(str, vars.i) + 1));
-			dprintf(2, "LEN 3:: %d\n", ft_count_word_len2(str, vars.i));
+			// dprintf(2, "LEN 3:: %d\n", ft_count_word_len2(str, vars.i));
 			ft_split_whitespipe_helper2(&vars, tab, str);
 		}
 	}

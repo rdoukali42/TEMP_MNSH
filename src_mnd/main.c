@@ -6,7 +6,7 @@
 /*   By: rdoukali <rdoukali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 20:42:38 by rdoukali          #+#    #+#             */
-/*   Updated: 2023/05/16 19:52:08 by rdoukali         ###   ########.fr       */
+/*   Updated: 2023/05/16 23:28:34 by rdoukali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 char	**ft_exe(char *line, char **env, t_mnsh *minishell)
 {
 	line = ft_space_erase2(line, minishell);
-	if (ft_strchr(line, '>') || ft_strchr(line, '<'))
+	if (ft_strchr_pipe(line, '>') || ft_strchr_pipe(line, '<'))
 		env = ft_exec_redir(line, env, minishell);
 	else
 		env = ft_builtin(line, env, minishell);
@@ -56,7 +56,7 @@ int	**ft_execute(char *line, t_mnsh *minishell)
 	else if (ft_strchr_pipe(line, '|'))
 	{
 		all = ft_split_whitepipe(line, minishell);
-		ft_display(all);
+		// ft_display(all);
 		minishell->env = ft_pipe(line, minishell->env, all, minishell);
 	}
 	else

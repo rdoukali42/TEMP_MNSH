@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmohamed <kmohamed@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rdoukali <rdoukali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 18:50:59 by rdoukali          #+#    #+#             */
-/*   Updated: 2023/05/12 12:02:45 by kmohamed         ###   ########.fr       */
+/*   Updated: 2023/05/16 23:59:21 by rdoukali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,6 +167,7 @@ void	ft_echo(char *line, t_mnsh	*minishell)
 	i = 1;
 	tmp = 0;
 	cmd = ft_split_whitespaces(line, minishell);
+	ft_display(cmd);
 	cmd = ft_cmds_fix(cmd, minishell);
 	if (strcmp(cmd[i], "-n") == 0)
 	{

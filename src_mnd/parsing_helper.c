@@ -6,7 +6,7 @@
 /*   By: rdoukali <rdoukali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 12:29:24 by kmohamed          #+#    #+#             */
-/*   Updated: 2023/05/16 19:52:42 by rdoukali         ###   ########.fr       */
+/*   Updated: 2023/05/16 23:48:56 by rdoukali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ void	ft_count_words_helper(int *count, int *i, char *str)
 	(*count)++;
 	(*i)++;
 	while (str[(*i)] != '\'' && str[(*i)] != '\0' && str[(*i)] != '\"')
+		(*i)++;
+	if (str[(*i)] == '\'' || str[(*i)] == '\"')
 		(*i)++;
 }
 

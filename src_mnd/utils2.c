@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmohamed <kmohamed@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rdoukali <rdoukali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 00:34:47 by rdoukali          #+#    #+#             */
-/*   Updated: 2023/05/12 12:42:47 by kmohamed         ###   ########.fr       */
+/*   Updated: 2023/05/16 23:40:55 by rdoukali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ char	**ft_cmds_fix(char **cmd, t_mnsh *minishell)
 				i++;
 		}
 		else
-			new[j++] = cmd[i];
+			new[j++] = ft_strdup(cmd[i], minishell);
 		if (!cmd[i])
 			break ;
 		i++;
