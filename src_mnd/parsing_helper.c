@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_helper.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmohamed <kmohamed@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rdoukali <rdoukali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 12:29:24 by kmohamed          #+#    #+#             */
-/*   Updated: 2023/05/12 16:48:04 by kmohamed         ###   ########.fr       */
+/*   Updated: 2023/05/16 19:52:42 by rdoukali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	ft_count_words_helper(int *count, int *i, char *str)
 		(*i)++;
 }
 
-void	ft_split_whitespaces_helper1(t_parsing *vars, char	**tab, char *str)
+void	ft_split_whitespaces_helper1(t_parsing *vars, char **tab, char *str)
 {
 	tab[(*vars).j][(*vars).k] = str[(*vars).i];
 	(*vars).k++;
@@ -57,6 +57,37 @@ void	ft_split_whitespaces_helper2(t_parsing *vars, char	**tab, char *str)
 		tab[(*vars).j][(*vars).k] = str[(*vars).i];
 		(*vars).k++;
 		(*vars).i++;
+	}
+	tab[(*vars).j][(*vars).k] = '\0';
+	(*vars).j++;
+	(*vars).k = 0;
+}
+
+void	ft_split_whitespipe_helper2(t_parsing *vars, char	**tab, char *str)
+{
+	while (str[(*vars).i] != '|' && str[(*vars).i] != '\0')
+	{
+		if ( str[(*vars).i] == '\'' || str[(*vars).i] == '\"')
+		{
+			tab[(*vars).j][(*vars).k] = str[(*vars).i];
+			(*vars).k++;
+			(*vars).i++;
+			while( str[(*vars).i] != '\'' && str[(*vars).i] != '\"')
+			{
+				tab[(*vars).j][(*vars).k] = str[(*vars).i];
+				(*vars).k++;
+				(*vars).i++;
+			}
+			tab[(*vars).j][(*vars).k] = str[(*vars).i];
+			(*vars).k++;
+			(*vars).i++;
+		}
+		else
+		{
+			tab[(*vars).j][(*vars).k] = str[(*vars).i];
+			(*vars).k++;
+			(*vars).i++;
+		}
 	}
 	tab[(*vars).j][(*vars).k] = '\0';
 	(*vars).j++;

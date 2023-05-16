@@ -6,7 +6,7 @@
 /*   By: rdoukali <rdoukali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 00:07:32 by rdoukali          #+#    #+#             */
-/*   Updated: 2023/05/15 00:53:28 by rdoukali         ###   ########.fr       */
+/*   Updated: 2023/05/15 23:06:19 by rdoukali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ char	*ft_ft_was2(char *str, int i, t_mnsh *minishell)
 	start = i;
 	while (str[i] != '\0' && str[i] != ' ' && str[i] != '\t')
 		i++;
-	// ptr = my_malloc(&minishell->memory_blocks, sizeof(char) * (i - start + 1));
 	ptr = malloc(sizeof(char) * (i - start + 1));
 	j = 0;
 	while (str[start] != '\0' && str[start] != ' ' && str[start] != '\t')

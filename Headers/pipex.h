@@ -6,7 +6,7 @@
 /*   By: rdoukali <rdoukali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 11:03:42 by rdoukali          #+#    #+#             */
-/*   Updated: 2023/05/15 21:51:55 by rdoukali         ###   ########.fr       */
+/*   Updated: 2023/05/15 23:58:21 by rdoukali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,6 +135,7 @@ int		ft_2count(char *line, char find);
 int		ft_strchr_pipe(char *str, char c);
 char	*ft_space_erase2(char *str, t_mnsh *minishell);
 char	*ft_space_erase(char *str, t_mnsh *minishell);
+char	**ft_split_whitepipe(char *str, t_mnsh *minishell);
 ///  ///////////////////////////////  ///
 ///  ///          echo           ///  ///
 ///  ///////////////////////////////  ///
@@ -151,6 +152,7 @@ void	ft_search_and_add(char *find, char *cpy, t_mnsh *minishell);
 ///  ///////////////////////////////  ///
 ///  ///          Helpers        ///  ///
 ///  ///////////////////////////////  ///
+void	ft_split_whitespipe_helper2(t_parsing *vars, char	**tab, char *str);
 void	ft_setenv_helper(int *i, int *j, int *k);
 void	ft_putstr_fd(char *s, int fd);
 void	free_path(char **path, t_mnsh *minishell);

@@ -6,7 +6,7 @@
 /*   By: rdoukali <rdoukali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 21:32:39 by rdoukali          #+#    #+#             */
-/*   Updated: 2023/05/15 23:04:01 by rdoukali         ###   ########.fr       */
+/*   Updated: 2023/05/15 23:12:59 by rdoukali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,17 +96,15 @@ void	ft_chkblt3(char *line, char **env, char *path, t_mnsh *minishell)
 
 char	**ft_builtin(char *line, char **env, t_mnsh *minishell)
 {
-	int		status;
-	int		id;
+	int		r;
 	char	*path;
-	char	**new;
 
 	path = ft_extr_path(line, env, minishell);
-	ft_chkblt(line, env, minishell);
+	r = ft_chkblt(line, env, minishell);
 	if (ft_strncmp(line, "export", 6) == 0
 		|| ft_strncmp(line, "unset", 5) == 0)
 		env = ft_chkblt2(line, env, minishell);
-	else
+	else if (r == 0)
 		ft_chkblt3(line, env, path, minishell);
 	return (env);
 }

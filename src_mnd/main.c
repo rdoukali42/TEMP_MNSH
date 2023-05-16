@@ -6,7 +6,7 @@
 /*   By: rdoukali <rdoukali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 20:42:38 by rdoukali          #+#    #+#             */
-/*   Updated: 2023/05/15 22:19:01 by rdoukali         ###   ########.fr       */
+/*   Updated: 2023/05/16 19:52:08 by rdoukali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,8 @@ int	**ft_execute(char *line, t_mnsh *minishell)
 		ft_quote(line, minishell->env, '\"', minishell);
 	else if (ft_strchr_pipe(line, '|'))
 	{
-		all = ft_split(line, '|', minishell);
+		all = ft_split_whitepipe(line, minishell);
+		ft_display(all);
 		minishell->env = ft_pipe(line, minishell->env, all, minishell);
 	}
 	else
@@ -72,7 +73,6 @@ int	main(int ac, char **av, char **envp)
 {
 	static int	a;
 	char		*line;
-	char		*path;
 	t_mnsh		minishell;
 
 	a = 0;
@@ -98,7 +98,9 @@ int	main(int ac, char **av, char **envp)
 		add_history(line);
 		rl_on_new_line();
 	}
+	free(line);
 	free_path(minishell.env, &minishell);
 	free_all_mem(&minishell.memory_blocks);
+	// system("leaks minishell");
 	return (minishell.exit);
 }
