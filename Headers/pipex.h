@@ -6,7 +6,7 @@
 /*   By: rdoukali <rdoukali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 11:03:42 by rdoukali          #+#    #+#             */
-/*   Updated: 2023/05/15 23:58:21 by rdoukali         ###   ########.fr       */
+/*   Updated: 2023/05/18 22:20:51 by rdoukali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@
 # include <errno.h>
 # include <string.h>
 # include <termios.h>
+
+int	g_exit_under;
 
 typedef struct s_token
 {
@@ -62,8 +64,8 @@ void	ft_error2(t_mnsh *minishell, int n, char *str);
 ///  ///////////////////////////////  ///
 ///  ///          SIGNALS       ///  ///
 ///  ///////////////////////////////  ///
+int		exit_cmp(char *str);
 void	kill_fork(int id);
-int	exit_cmp(char *str);
 void	sin_int_handler(int sig_num);
 void	sin_term_handler(int sig_num);
 void	signal_handler(int signo);
@@ -127,7 +129,8 @@ void	ft_quote(char *line, char **env, char c, t_mnsh *minishell);
 void	ft_dbl_under(char *line, t_mnsh *minishell);
 void	ft_display(char **str);
 int		ft_count_str(char **str);
-char	*ft2_word_after_sign(char *str, char sign, int index, t_mnsh *minishell);
+char	*ft2_word_after_sign(char *str, char sign, int index,
+			t_mnsh *minishell);
 char	*ft_word_after_sign(char *str, char sign, int dbl, t_mnsh *minishell);
 int		ft_str2chr(char *str, char c);
 int		ft_count(char *line, char find);
@@ -136,6 +139,10 @@ int		ft_strchr_pipe(char *str, char c);
 char	*ft_space_erase2(char *str, t_mnsh *minishell);
 char	*ft_space_erase(char *str, t_mnsh *minishell);
 char	**ft_split_whitepipe(char *str, t_mnsh *minishell);
+int		ft_count_word_len2(char *str, int i);
+void	ft_signalisation(void);
+void	ft_signalisation_under(void);
+void	signal_handler_under(int signo);
 ///  ///////////////////////////////  ///
 ///  ///          echo           ///  ///
 ///  ///////////////////////////////  ///
@@ -152,6 +159,8 @@ void	ft_search_and_add(char *find, char *cpy, t_mnsh *minishell);
 ///  ///////////////////////////////  ///
 ///  ///          Helpers        ///  ///
 ///  ///////////////////////////////  ///
+void	ft_args_init(int *a, char ***env, t_mnsh *minishell, char **envp);
+void	ft_free_all(char *line, t_mnsh *minishell);
 void	ft_split_whitespipe_helper2(t_parsing *vars, char	**tab, char *str);
 void	ft_setenv_helper(int *i, int *j, int *k);
 void	ft_putstr_fd(char *s, int fd);

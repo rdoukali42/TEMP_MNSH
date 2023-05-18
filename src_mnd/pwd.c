@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmohamed <kmohamed@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rdoukali <rdoukali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 18:52:14 by rdoukali          #+#    #+#             */
-/*   Updated: 2023/05/12 12:31:43 by kmohamed         ###   ########.fr       */
+/*   Updated: 2023/05/18 22:35:59 by rdoukali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	ft_pwd(char **env, t_mnsh *minishell)
 
 	pwd = ft_search_and_return(env, "PWD=", minishell);
 	printf("%s\n", pwd);
+	free(pwd);
 }
 
 void	ft_env(char **env)

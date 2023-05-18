@@ -1,47 +1,56 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   parsing_helper2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rdoukali <rdoukali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/28 20:42:14 by rdoukali          #+#    #+#             */
-/*   Updated: 2023/05/18 20:05:24 by rdoukali         ###   ########.fr       */
+/*   Created: 2023/05/18 19:28:35 by rdoukali          #+#    #+#             */
+/*   Updated: 2023/05/18 20:06:22 by rdoukali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Headers/pipex.h"
 #include "../Headers/memory.h"
 
-int	ft_count_word_len(char *str, int i)
+int	ft_cwl2(char *str, int *i, int len)
 {
-	int		len;
-
-	len = 0;
-	if (str[i] == '\'' || str[i] == '\"')
+	*i += 1;
+	len++;
+	while (str[*i] != '\'' && str[*i] != '\0' && str[*i] != '\"')
 	{
-		i++;
+		*i += 1;
 		len++;
-		while (str[i] != '\'' && str[i] != '\0' && str[i] != '\"')
-		{
-			i++;
-			len++;
-		}
-		if (str[i] == '\'' || str[i] == '\"')
-			len++;
 	}
-	else
+	if (str[*i] == '\'' || str[*i] == '\"')
 	{
-		while (str[i] == ' ' || str[i] == '\t' || str[i] == '\n')
-			i++;
-		while (str[i] != ' ' && str[i] != '\t'
-			&& str[i] != '\n' && str[i++] != '\0')
-			len++;
+		len++;
+		*i += 1;
 	}
 	return (len);
 }
 
-int	ft_count_words(char *str)
+int	ft_count_word_len2(char *str, int i)
+{
+	int		len;
+
+	len = 0;
+	while (str[i])
+	{
+		if (str[i] == '\'' || str[i] == '\"')
+			len = ft_cwl2(str, &i, len);
+		else if (str[i] != '|')
+		{
+			i++;
+			len++;
+		}
+		else
+			return (len);
+	}
+	return (len);
+}
+
+int	ft_count_words2(char *str)
 {
 	int	i;
 	int	j;
@@ -52,47 +61,46 @@ int	ft_count_words(char *str)
 	count = 0;
 	while (str[i] != '\0')
 	{
-		while (str[i] == ' ' || str[i] == '\n' || str[i] == '\t')
-			i++;
-		if (str[i] == '\'' || str[i] == '\"')
-			ft_count_words_helper(&count, &i, str);
-		else if (str[i])
+		if (str[i] == '|' || str[i] == '\'' || str[i] == '\"')
 		{
-			while (str[i] && str[i] != ' ' && str[i] != '\n' && str[i] != '\t')
-				i++;
-			count++;
+			if (str[i] == '\'' || str[i] == '\"')
+				ft_count_words_helper(&count, &i, str);
+			else if (j > 0)
+				count++;
+			j = 0;
 		}
-		if (!str[i])
-			return (count);
+		else
+			j++;
+		i++;
 	}
 	if (j > 0)
 		count++;
 	return (count);
 }
 
-char	**ft_split_whitespaces(char *str, t_mnsh *minishell)
+char	**ft_split_whitepipe(char *str, t_mnsh *minishell)
 {
 	char		**tab;
 	t_parsing	vars;
 
 	ft_setenv_helper(&(vars.i), &(vars.j), &(vars.k));
 	tab = my_malloc(&minishell->memory_blocks,
-			sizeof(char *) * (ft_count_words(str) + 1));
-	while (str[vars.i] != '\0' && vars.j < ft_count_words(str))
+			sizeof(char *) * (ft_count_words2(str) + 1));
+	while (str[vars.i] != '\0')
 	{
-		while (str[vars.i] == ' ' || str[vars.i] == '\t' || str[vars.i] == '\n')
+		if (str[vars.i] == '|')
 			(vars.i)++;
 		if (str[vars.i] == '\'' || str[vars.i] == '\"')
 		{
 			tab[vars.j] = my_malloc(&minishell->memory_blocks,
-					sizeof(char) * (ft_count_word_len(str, vars.i) + 1));
+					sizeof(char) * (ft_count_word_len2(str, vars.i) + 1));
 			ft_split_whitespaces_helper1(&vars, tab, str);
 		}
 		else if (str[vars.i] != '\0')
 		{
 			tab[vars.j] = my_malloc(&minishell->memory_blocks,
-					sizeof(char) * (ft_count_word_len(str, vars.i) + 1));
-			ft_split_whitespaces_helper2(&vars, tab, str);
+					sizeof(char) * (ft_count_word_len2(str, vars.i) + 1));
+			ft_split_whitespipe_helper2(&vars, tab, str);
 		}
 	}
 	tab[vars.j] = 0;

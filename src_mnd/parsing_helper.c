@@ -6,7 +6,7 @@
 /*   By: rdoukali <rdoukali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 12:29:24 by kmohamed          #+#    #+#             */
-/*   Updated: 2023/05/16 23:48:56 by rdoukali         ###   ########.fr       */
+/*   Updated: 2023/05/18 20:16:23 by rdoukali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,30 +65,32 @@ void	ft_split_whitespaces_helper2(t_parsing *vars, char	**tab, char *str)
 	(*vars).k = 0;
 }
 
+void	ft_split_whitespipe_helper22(int *i, int *k)
+{
+	*i += 1;
+	*k += 1;
+}
+
 void	ft_split_whitespipe_helper2(t_parsing *vars, char	**tab, char *str)
 {
 	while (str[(*vars).i] != '|' && str[(*vars).i] != '\0')
 	{
-		if ( str[(*vars).i] == '\'' || str[(*vars).i] == '\"')
+		if (str[(*vars).i] == '\'' || str[(*vars).i] == '\"')
 		{
 			tab[(*vars).j][(*vars).k] = str[(*vars).i];
-			(*vars).k++;
-			(*vars).i++;
-			while( str[(*vars).i] != '\'' && str[(*vars).i] != '\"')
+			ft_split_whitespipe_helper22(&(*vars).i, &(*vars).k);
+			while (str[(*vars).i] != '\'' && str[(*vars).i] != '\"')
 			{
 				tab[(*vars).j][(*vars).k] = str[(*vars).i];
-				(*vars).k++;
-				(*vars).i++;
+				ft_split_whitespipe_helper22(&(*vars).i, &(*vars).k);
 			}
 			tab[(*vars).j][(*vars).k] = str[(*vars).i];
-			(*vars).k++;
-			(*vars).i++;
+			ft_split_whitespipe_helper22(&(*vars).i, &(*vars).k);
 		}
 		else
 		{
 			tab[(*vars).j][(*vars).k] = str[(*vars).i];
-			(*vars).k++;
-			(*vars).i++;
+			ft_split_whitespipe_helper22(&(*vars).i, &(*vars).k);
 		}
 	}
 	tab[(*vars).j][(*vars).k] = '\0';

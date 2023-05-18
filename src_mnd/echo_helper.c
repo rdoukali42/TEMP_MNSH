@@ -6,7 +6,7 @@
 /*   By: rdoukali <rdoukali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 11:43:23 by kmohamed          #+#    #+#             */
-/*   Updated: 2023/05/16 23:33:30 by rdoukali         ###   ########.fr       */
+/*   Updated: 2023/05/18 20:09:35 by rdoukali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	loop_cmd(int *i, char	**cmd, char	*fix, t_mnsh	*minishell)
 		}
 		else
 			ft_putstr_noquote(cmd[(*i)]);
-		if (cmd[(*i) + 1] && ft_strchr(cmd[(*i) + 1], '|') == 0)
+		if (cmd[(*i) + 1])
 			write(1, " ", 1);
 		(*i)++;
 	}

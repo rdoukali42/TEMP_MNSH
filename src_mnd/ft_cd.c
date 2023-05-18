@@ -6,7 +6,7 @@
 /*   By: rdoukali <rdoukali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 20:44:36 by rdoukali          #+#    #+#             */
-/*   Updated: 2023/05/14 22:08:50 by rdoukali         ###   ########.fr       */
+/*   Updated: 2023/05/18 22:45:19 by rdoukali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ char	*ft_getenv(char *str, t_mnsh *minishell)
 void	ft_chdir(int ch, char *path, t_mnsh *minishell)
 {
 	char	*tmp;
+	char	*tmp2;
 
 	if (ch == -1)
 	{
@@ -42,7 +43,9 @@ void	ft_chdir(int ch, char *path, t_mnsh *minishell)
 	{
 		tmp = ft_getenv("PWD=", minishell);
 		ft_search_and_add("OLDPWD=", tmp, minishell);
-		ft_search_and_add("PWD=", getcwd(NULL, 0), minishell);
+		tmp2 = getcwd(NULL, 0);
+		ft_search_and_add("PWD=", tmp2, minishell);
+		free(tmp2);
 		tmp = ft_getenv("PWD=", minishell);
 	}
 }

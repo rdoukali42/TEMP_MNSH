@@ -6,7 +6,7 @@
 /*   By: rdoukali <rdoukali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 20:15:45 by rdoukali          #+#    #+#             */
-/*   Updated: 2023/05/14 22:25:11 by rdoukali         ###   ########.fr       */
+/*   Updated: 2023/05/18 22:18:43 by rdoukali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,13 +110,20 @@ void	ft_dbl_under(char *line, t_mnsh *minishell)
 	char	*file;
 
 	file = ft_file_name(line, minishell);
-	if (!file)
+	if (!file || ft_strlen(file) < 1)
+	{
+		ft_putstr_fd("Minishell: syntax error near", 2);
+		ft_putstr_fd(" unexpected token `newline'\n", 2);
+		minishell->exit = 258;
 		return ;
+	}
+	ft_signalisation();
 	while (1)
 	{
 		line2 = readline("> ");
 		if (!line2)
 			break ;
+		printf("line is %s\n", line2);
 		if (ft_strcmp(line2, file) == 0)
 			break ;
 		rl_on_new_line();

@@ -6,7 +6,7 @@
 /*   By: rdoukali <rdoukali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 20:42:38 by rdoukali          #+#    #+#             */
-/*   Updated: 2023/05/16 23:28:34 by rdoukali         ###   ########.fr       */
+/*   Updated: 2023/05/18 22:34:05 by rdoukali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,20 +21,6 @@ char	**ft_exe(char *line, char **env, t_mnsh *minishell)
 	else
 		env = ft_builtin(line, env, minishell);
 	return (env);
-}
-
-void	ft_signalisation(void)
-{
-	struct sigaction	ctrl_c;
-
-	sigemptyset(&ctrl_c.sa_mask);
-	ctrl_c.sa_handler = signal_handler;
-	ctrl_c.sa_flags = SA_RESTART;
-	sigaction(SIGINT, &ctrl_c, NULL);
-	signal(SIGINT, signal_handler);
-	sigaction(SIGQUIT, &ctrl_c, NULL);
-	signal(SIGQUIT, signal_handler);
-	signal(SIGTERM, SIG_IGN);
 }
 
 void	ft_rl(void)
@@ -56,7 +42,6 @@ int	**ft_execute(char *line, t_mnsh *minishell)
 	else if (ft_strchr_pipe(line, '|'))
 	{
 		all = ft_split_whitepipe(line, minishell);
-		// ft_display(all);
 		minishell->env = ft_pipe(line, minishell->env, all, minishell);
 	}
 	else
@@ -69,27 +54,30 @@ int	**ft_execute(char *line, t_mnsh *minishell)
 	return (0);
 }
 
+int	ft_line_checker(char *line)
+{
+	if (!line)
+	{
+		ft_rl ();
+		return (0);
+	}
+	return (1);
+}
+
 int	main(int ac, char **av, char **envp)
 {
-	static int	a;
 	char		*line;
 	t_mnsh		minishell;
 
-	a = 0;
 	minishell.exit = 0;
 	minishell.memory_blocks = NULL;
-	if (a == 0)
-		minishell.env = ft_file_dup(envp, &minishell);
-	a = 1;
+	minishell.env = ft_file_dup(envp, &minishell);
 	while (1)
 	{
 		ft_signalisation();
 		line = readline("ᴍɪɴɪꜱʜᴇʟʟ -> ");
-		if (!line)
-		{
-			ft_rl ();
+		if (!ft_line_checker(line))
 			break ;
-		}
 		if (line[0] == 0)
 			continue ;
 		if (ft_strcmp(line, "exit") == 0)
@@ -97,10 +85,10 @@ int	main(int ac, char **av, char **envp)
 		ft_execute(line, &minishell);
 		add_history(line);
 		rl_on_new_line();
+		free(line);
 	}
-	free(line);
 	free_path(minishell.env, &minishell);
 	free_all_mem(&minishell.memory_blocks);
-	// system("leaks minishell");
+	system("leaks minishell");
 	return (minishell.exit);
 }
