@@ -6,7 +6,7 @@
 /*   By: rdoukali <rdoukali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 12:09:56 by rdoukali          #+#    #+#             */
-/*   Updated: 2023/05/15 22:21:07 by rdoukali         ###   ########.fr       */
+/*   Updated: 2023/05/29 18:43:05 by rdoukali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,5 +49,10 @@ void	ft_error2(t_mnsh *minishell, int n, char *str)
 		ft_putstr(str);
 		ft_putstr(": command not found\n");
 		minishell->exit = 127;
+	}
+	if (n == 7)
+	{
+		ft_putstr("Minishell : Bad Input !\n");
+		exit (1);
 	}
 }

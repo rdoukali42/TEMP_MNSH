@@ -6,7 +6,7 @@
 /*   By: rdoukali <rdoukali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 18:50:59 by rdoukali          #+#    #+#             */
-/*   Updated: 2023/05/18 21:52:24 by rdoukali         ###   ########.fr       */
+/*   Updated: 2023/05/29 20:49:40 by rdoukali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ char	*ft_quote_erase(char *str, t_mnsh *env)
 	char	*tmp;
 
 	i = 0;
+	j = 0;
 	while (str[i] == '\"' || str[i] == '\'')
 		i++;
 	tmp = my_malloc(&env->memory_blocks, sizeof(char) * (ft_strlen(str) - 1));
@@ -30,7 +31,6 @@ char	*ft_quote_erase(char *str, t_mnsh *env)
 		j++;
 	}
 	tmp[j] = '\0';
-	dprintf(2, "++%s++\n", tmp);
 	return (tmp);
 }
 
@@ -83,7 +83,6 @@ char	*ft_quote_chk(char *str, t_mnsh *env)
 {
 	int		i;
 	int		j;
-	int		mem;
 	char	*ptr;
 
 	i = 0;
@@ -103,67 +102,14 @@ char	*ft_quote_chk(char *str, t_mnsh *env)
 	return (ptr);
 }
 
-// old version below :
-// void	ft_echo(char *line, t_mnsh	*minishell)
-// {
-// 	int		i;
-// 	int		j;
-// 	int		tmp;
-// 	char	**cmd;
-// 	char	*fix;
-
-// 	i = 1;
-// 	tmp = 0;
-// 	// cmd = ft_split(line, ' ');
-// 	cmd = ft_split_whitespaces(line, minishell);
-// 	// dprintf(2, "LINE IS ECHO : %d\n", line);
-// 	cmd = ft_cmds_fix(cmd, minishell);
-// 	//ft_display(cmd);
-// 	if (strcmp(cmd[i], "-n") == 0)
-// 	{
-// 		i++;
-// 		tmp = 1;
-// 	}
-// 	while (cmd[i])
-// 	{
-// 		// if (!cmd[i] || ft_strcmp(cmd[i], "|") == 0)
-// 		// 	break;
-// 		if (strcmp(cmd[i], "$?") == 0)
-// 			ft_putnbr(minishell->exit);
-// 		else if (ft_strchr(cmd[i], '$'))
-// 		{
-// 			j = 0;
-// 			fix = ft_quote_chk(&cmd[i][j], minishell);
-// 			while (fix[j] != '$')
-// 			{
-// 				write(1, &fix[j], 1);
-// 				j++;
-// 			}
-// 			if (fix[j] == '$' && ft_strchr(cmd[i], '\'') == 0)
-// 				ft_dollar(&fix[j], minishell);
-// 			else
-// 				ft_putstr(&fix[j]);
-// 		}
-// 		else
-// 			ft_putstr_noquote(cmd[i]);
-// 		if (cmd[i + 1] && ft_strchr(cmd[i + 1], '|') == 0)
-// 			write(1, " ", 1);
-// 		i++;
-// 	}
-// 	if (tmp != 1)
-// 		write(1, "\n", 1);
-// 	minishell->exit = 0;
-// 	//if (ft_strchr(line, '>'))
-// 	return ;
-// }
 void	ft_echo(char *line, t_mnsh	*minishell)
 {
 	int		i;
-	int		j;
 	int		tmp;
 	char	**cmd;
 	char	*fix;
 
+	fix = NULL;
 	i = 1;
 	tmp = 0;
 	cmd = ft_split_whitespaces(line, minishell);

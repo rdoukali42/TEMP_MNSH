@@ -6,7 +6,7 @@
 /*   By: rdoukali <rdoukali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 20:44:36 by rdoukali          #+#    #+#             */
-/*   Updated: 2023/05/18 22:45:19 by rdoukali         ###   ########.fr       */
+/*   Updated: 2023/05/29 21:43:21 by rdoukali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,12 +50,12 @@ void	ft_chdir(int ch, char *path, t_mnsh *minishell)
 	}
 }
 
-//More than 25 lines
-void	ft_cd(char *line, t_mnsh *minishell, char *parm)
+void	ft_cd(t_mnsh *minishell, char *parm)
 {
 	char	*path;
 	char	*tmp;
 
+	path = NULL;
 	while (*parm == ' ')
 		parm++;
 	if (parm == NULL || *parm == '\0')
@@ -77,18 +77,3 @@ void	ft_cd(char *line, t_mnsh *minishell, char *parm)
 	ft_chdir(chdir(path), path, minishell);
 	my_free(&minishell->memory_blocks, path);
 }
-
-/*// if (chdir(path) == -1)
-	// {
-	// 	minishell->exit = 1;
-	// 	ft_putstr("minishell: cd: ");
-	// 	ft_putstr(path);
-	// 	ft_putstr(": No such file or directory\n");
-	// }
-	// else
-	// {
-	// 	tmp = ft_getenv("PWD=", minishell);
-	// 	ft_search_and_add("OLDPWD=", tmp, minishell);
-	// 	ft_search_and_add("PWD=", getcwd(NULL, 0), minishell);
-	// 	tmp = ft_getenv("PWD=", minishell);
-	// }*/

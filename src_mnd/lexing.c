@@ -6,7 +6,7 @@
 /*   By: rdoukali <rdoukali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 21:01:40 by rdoukali          #+#    #+#             */
-/*   Updated: 2023/05/15 21:30:35 by rdoukali         ###   ########.fr       */
+/*   Updated: 2023/05/29 18:20:07 by rdoukali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,6 @@ t_token	*ft_lexing(char **file, char **env, t_mnsh *minishell)
 {
 	t_token	*token;
 	t_token	*head;
-	char	*path2;
 
 	token = my_malloc(&minishell->memory_blocks, sizeof(t_token));
 	head = token;

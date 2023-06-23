@@ -6,7 +6,7 @@
 /*   By: rdoukali <rdoukali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 11:03:42 by rdoukali          #+#    #+#             */
-/*   Updated: 2023/05/18 22:20:51 by rdoukali         ###   ########.fr       */
+/*   Updated: 2023/05/29 21:37:07 by rdoukali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,6 @@
 # include <errno.h>
 # include <string.h>
 # include <termios.h>
-
-int	g_exit_under;
 
 typedef struct s_token
 {
@@ -82,11 +80,11 @@ char	*ffss_norm(char **file, int i, int j, t_mnsh *minishell);
 ///  ///////////////////////////////  ///
 char	**ft_builtin(char *line, char **env, t_mnsh *minishell);
 void	ft_echo(char *line, t_mnsh *minishell);
-void	ft_cd(char *line, t_mnsh *minishell, char *parm);
+void	ft_cd(t_mnsh *minishell, char *parm);
 char	**ft_export(char *str, t_mnsh *minishell);
 char	**ft_unset(char **env, char *str, t_mnsh *minishell);
 char	**ft_exec_redir(char *line, char **env, t_mnsh *minishell);
-char	**ft_pipe(char *line, char **env, char **cmd, t_mnsh *minishell);
+char	**ft_pipe(char **env, char **cmd, t_mnsh *minishell);
 ///  ///////////////////////////////  ///
 ///  ///          LIBFT          ///  ///
 ///  ///////////////////////////////  ///
@@ -185,8 +183,9 @@ void	ft_mult_loop(char *line, t_mnsh *minishell);
 void	ft_under(char *file);
 void	ft_dblgrt_loop(char *line, t_mnsh *minishell);
 void	ft_grt_loop(char *line, t_mnsh *minishell);
-void	ft_double_greater(char *file, int fdout);
-void	ft_greather(char *file, int fdout);
-
+void	ft_double_greater(char *file);
+void	ft_greather(char *file);
+int		ft_exit_status(char *line, t_mnsh *minishell);
 t_token	*ft_lexing(char **file, char **env, t_mnsh *minishell);
+
 #endif

@@ -6,7 +6,7 @@
 /*   By: rdoukali <rdoukali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 13:49:14 by rdoukali          #+#    #+#             */
-/*   Updated: 2023/05/15 00:08:00 by rdoukali         ###   ########.fr       */
+/*   Updated: 2023/05/29 18:37:52 by rdoukali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ char	*ft2_word_after_sign(char *str, char sign, int index, t_mnsh *minishell)
 {
 	int		i;
 	int		k;
-	int		start;
 	char	*ptr;
 
 	i = 0;

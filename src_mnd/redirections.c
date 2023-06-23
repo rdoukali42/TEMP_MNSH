@@ -6,24 +6,25 @@
 /*   By: rdoukali <rdoukali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 01:08:21 by rdoukali          #+#    #+#             */
-/*   Updated: 2023/05/14 23:40:43 by rdoukali         ###   ########.fr       */
+/*   Updated: 2023/05/29 18:40:08 by rdoukali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Headers/pipex.h"
 #include "../Headers/memory.h"
 
-void	ft_greather(char *file, int fdout)
+void	ft_greather(char *file)
 {
+	int	fdout;
+
 	fdout = openfile(file, 1);
 	dup2(fdout, STDOUT_FILENO);
 	return ;
 }
 
-void	ft_double_greater(char *file, int fdout)
+void	ft_double_greater(char *file)
 {
-	int		id;
-	char	tmp[256];
+	int	fdout;
 
 	fdout = openfile(file, 2);
 	if (!file)
@@ -35,7 +36,6 @@ void	ft_double_greater(char *file, int fdout)
 
 void	ft_grt_loop(char *line, t_mnsh *minishell)
 {
-	int	fd;
 	int	i;
 	int	nb;
 
@@ -43,7 +43,7 @@ void	ft_grt_loop(char *line, t_mnsh *minishell)
 	nb = ft_count(line, '>');
 	while (i <= nb)
 	{
-		ft_greather(ft2_word_after_sign(line, '>', i, minishell), fd);
+		ft_greather(ft2_word_after_sign(line, '>', i, minishell));
 		i++;
 	}
 	return ;
@@ -51,7 +51,6 @@ void	ft_grt_loop(char *line, t_mnsh *minishell)
 
 void	ft_dblgrt_loop(char *line, t_mnsh *minishell)
 {
-	int	fd;
 	int	i;
 	int	nb;
 
@@ -59,7 +58,7 @@ void	ft_dblgrt_loop(char *line, t_mnsh *minishell)
 	nb = ft_2count(line, '>');
 	while (i <= nb)
 	{
-		ft_double_greater(ft2_word_after_sign(line, '>', i, minishell), fd);
+		ft_double_greater(ft2_word_after_sign(line, '>', i, minishell));
 		i++;
 	}
 	return ;

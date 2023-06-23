@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmohamed <kmohamed@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rdoukali <rdoukali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 13:50:59 by rdoukali          #+#    #+#             */
-/*   Updated: 2023/05/12 16:55:20 by kmohamed         ###   ########.fr       */
+/*   Updated: 2023/05/29 18:26:37 by rdoukali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,6 @@ char	*ft_path(char *path, char *cmd, t_mnsh *minishell)
 	int		i;
 	char	*str;
 	char	*tmp;
-	char	*tmp2;
 
 	i = 1;
 	if (access(cmd, F_OK | X_OK) == 0)

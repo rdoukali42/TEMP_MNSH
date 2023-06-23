@@ -6,22 +6,13 @@
 /*   By: rdoukali <rdoukali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 20:42:38 by rdoukali          #+#    #+#             */
-/*   Updated: 2023/05/18 22:34:05 by rdoukali         ###   ########.fr       */
+/*   Updated: 2023/05/29 21:42:33 by rdoukali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Headers/pipex.h"
 #include "../Headers/memory.h"
-
-char	**ft_exe(char *line, char **env, t_mnsh *minishell)
-{
-	line = ft_space_erase2(line, minishell);
-	if (ft_strchr_pipe(line, '>') || ft_strchr_pipe(line, '<'))
-		env = ft_exec_redir(line, env, minishell);
-	else
-		env = ft_builtin(line, env, minishell);
-	return (env);
-}
+#include "../Headers/get_next_line.h"
 
 void	ft_rl(void)
 {
@@ -42,7 +33,7 @@ int	**ft_execute(char *line, t_mnsh *minishell)
 	else if (ft_strchr_pipe(line, '|'))
 	{
 		all = ft_split_whitepipe(line, minishell);
-		minishell->env = ft_pipe(line, minishell->env, all, minishell);
+		minishell->env = ft_pipe(minishell->env, all, minishell);
 	}
 	else
 	{
@@ -56,11 +47,30 @@ int	**ft_execute(char *line, t_mnsh *minishell)
 
 int	ft_line_checker(char *line)
 {
+	int	i;
+
+	i = 0;
 	if (!line)
 	{
 		ft_rl ();
 		return (0);
 	}
+	else if (line[0] == ' ')
+	{
+		while (line[i] == ' ')
+			i++;
+		if (line[i] == '\0')
+			return (2);
+	}
+	return (1);
+}
+
+int	ft_main_init(int ac, char **av, t_mnsh *minishell)
+{
+	if (ac > 1 && av[1])
+		return (0);
+	minishell->exit = 0;
+	minishell->memory_blocks = NULL;
 	return (1);
 }
 
@@ -69,19 +79,20 @@ int	main(int ac, char **av, char **envp)
 	char		*line;
 	t_mnsh		minishell;
 
-	minishell.exit = 0;
-	minishell.memory_blocks = NULL;
+	if (ft_main_init(ac, av, &minishell) == 0)
+		ft_error2(&minishell, 7, NULL);
 	minishell.env = ft_file_dup(envp, &minishell);
 	while (1)
 	{
 		ft_signalisation();
-		line = readline("ᴍɪɴɪꜱʜᴇʟʟ -> ");
-		if (!ft_line_checker(line))
+		if (isatty(STDIN_FILENO))
+			line = readline("ᴍɪɴɪꜱʜᴇʟʟ -> ");
+		else
+			line = get_next_line(STDIN_FILENO);
+		if (!ft_line_checker(line) || ft_exit_status(line, &minishell))
 			break ;
-		if (line[0] == 0)
+		if (line[0] == 0 || ft_line_checker(line) == 2)
 			continue ;
-		if (ft_strcmp(line, "exit") == 0)
-			break ;
 		ft_execute(line, &minishell);
 		add_history(line);
 		rl_on_new_line();
@@ -89,6 +100,5 @@ int	main(int ac, char **av, char **envp)
 	}
 	free_path(minishell.env, &minishell);
 	free_all_mem(&minishell.memory_blocks);
-	system("leaks minishell");
 	return (minishell.exit);
 }

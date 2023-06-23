@@ -6,7 +6,7 @@
 /*   By: rdoukali <rdoukali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 20:15:45 by rdoukali          #+#    #+#             */
-/*   Updated: 2023/05/18 22:18:43 by rdoukali         ###   ########.fr       */
+/*   Updated: 2023/05/29 20:49:18 by rdoukali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,16 +21,15 @@ char	*ft_stradd(char const *s1, char const *s2, t_mnsh *minishell)
 
 	i = 0;
 	j = 0;
-	if ((!s1 && strncmp(s2, " \0", 2) == 0 || !s1 && strncmp(s2, "\n\0", 2) == 0))
+	if ((!s1 && strncmp(s2, " \0", 2) == 0)
+		|| (!s1 && strncmp(s2, "\n\0", 2) == 0))
 	{
-		printf("am out\n");
 		return (NULL);
 	}
 	p = my_malloc(&minishell->memory_blocks,
 			sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 2));
 	if (!p)
 	{
-		printf("am out2\n");
 		return (NULL);
 	}
 	ft_stradd_helper(p, s1, &i);
@@ -123,7 +122,6 @@ void	ft_dbl_under(char *line, t_mnsh *minishell)
 		line2 = readline("> ");
 		if (!line2)
 			break ;
-		printf("line is %s\n", line2);
 		if (ft_strcmp(line2, file) == 0)
 			break ;
 		rl_on_new_line();

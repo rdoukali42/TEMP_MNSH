@@ -6,7 +6,7 @@ CPPFLAGS	= -I/Users/$(USER)/.brew/opt/readline/include
 
 INCLUDE = -I ./Headers
 
-SRCS 		=	$(shell find ./src_mnd  -name "*.c")
+SRCS 		=	$(shell find ./src_mnd ./gnl -name "*.c")
 
 #SRCS_BONUS 	=	$(shell find ./src_bns -name "*.c")
 # BONS		= 	$(addprefix $(BONS_DIR), $(SRCS_BONUS))
@@ -17,7 +17,7 @@ OBJS 		=	$(SRCS:.c=.o)
 
 CC = gcc
 
-#CFLAG = -Wall -Wextra -Werror
+CFLAG = -Wall -Wextra -Werror
 
 %.o : %.c
 	@${CC} $(INCLUDE)  $(CPPFLAGS) ${CFLAG} -c $< -o $@ 

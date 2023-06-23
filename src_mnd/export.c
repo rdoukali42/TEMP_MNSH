@@ -3,17 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmohamed <kmohamed@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rdoukali <rdoukali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 21:12:26 by rdoukali          #+#    #+#             */
-/*   Updated: 2023/05/12 11:24:36 by kmohamed         ###   ########.fr       */
+/*   Updated: 2023/05/29 21:43:09 by rdoukali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Headers/pipex.h"
 #include "../Headers/memory.h"
 
-//function realloc the enviroment
 char	**ft_realloc_env(char *str, t_mnsh *minishell)
 {
 	char	**new_env;
@@ -74,6 +73,7 @@ char	**ft_add_str_to_file(char *str, t_mnsh *minishell)
 	char	**new_env;
 
 	var = ft_strdup_variable(str, "=", minishell);
+	new_env = ft_file_dup(minishell->env, minishell);
 	if (!var)
 		return (NULL);
 	i = 0;

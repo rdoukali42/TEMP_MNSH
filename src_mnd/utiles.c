@@ -6,7 +6,7 @@
 /*   By: rdoukali <rdoukali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 00:07:32 by rdoukali          #+#    #+#             */
-/*   Updated: 2023/05/15 23:06:19 by rdoukali         ###   ########.fr       */
+/*   Updated: 2023/05/29 18:40:25 by rdoukali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	ft_count(char *line, char find)
 	return (k);
 }
 
-char	*ft_ft_was2(char *str, int i, t_mnsh *minishell)
+char	*ft_ft_was2(char *str, int i)
 {
 	int		start;
 	int		j;
@@ -58,9 +58,9 @@ char	*ft_ft_was2(char *str, int i, t_mnsh *minishell)
 char	*ft_word_after_sign(char *str, char sign, int dbl, t_mnsh *minishell)
 {
 	int		i;
-	int		start;
 	char	*ptr;
 
+	dbl = minishell->exit;
 	i = 0;
 	while (str[i] != sign && str[i] != '\0')
 		i++;
@@ -74,6 +74,16 @@ char	*ft_word_after_sign(char *str, char sign, int dbl, t_mnsh *minishell)
 		i++;
 	while (str[i] == '/' && str[i + 1] == 'd')
 		i += 12;
-	ptr = ft_ft_was2(str, i, minishell);
+	ptr = ft_ft_was2(str, i);
 	return (ptr);
+}
+
+char	**ft_exe(char *line, char **env, t_mnsh *minishell)
+{
+	line = ft_space_erase2(line, minishell);
+	if (ft_strchr_pipe(line, '>') || ft_strchr_pipe(line, '<'))
+		env = ft_exec_redir(line, env, minishell);
+	else
+		env = ft_builtin(line, env, minishell);
+	return (env);
 }

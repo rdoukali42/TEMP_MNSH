@@ -6,7 +6,7 @@
 /*   By: rdoukali <rdoukali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 21:57:08 by rdoukali          #+#    #+#             */
-/*   Updated: 2023/05/18 22:18:52 by rdoukali         ###   ########.fr       */
+/*   Updated: 2023/05/29 21:39:05 by rdoukali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ void	ft_signalisation_under(void)
 
 void	signal_handler_under(int signo)
 {
+	int				g_exit_under;
 	struct termios	t;
 
 	tcgetattr(STDIN_FILENO, &t);

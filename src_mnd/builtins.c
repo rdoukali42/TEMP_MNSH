@@ -6,7 +6,7 @@
 /*   By: rdoukali <rdoukali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 21:32:39 by rdoukali          #+#    #+#             */
-/*   Updated: 2023/05/15 23:12:59 by rdoukali         ###   ########.fr       */
+/*   Updated: 2023/05/29 21:37:58 by rdoukali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,10 @@ int	ft_chkblt(char *line, char **env, t_mnsh *minishell)
 {
 	if (ft_strncmp(line, "cd ", 3) == 0
 		|| ft_strncmp(line, "/usr/bin/cd ", 12) == 0)
-		ft_cd(line, minishell, &line[3]);
+		ft_cd(minishell, &line[3]);
 	else if (ft_strncmp(line, "cd\0", 3) == 0
 		|| ft_strncmp(line, "/usr/bin/cd\0", 12) == 0)
-		ft_cd(line, minishell, NULL);
+		ft_cd(minishell, NULL);
 	else if (ft_strncmp(line, "echo ", 5) == 0
 		|| ft_strncmp(line, "/bin/echo ", 10) == 0)
 		ft_echo(line, minishell);
@@ -79,7 +79,6 @@ void	ft_chkblt3(char *line, char **env, char *path, t_mnsh *minishell)
 		id = fork();
 		if (id == 0)
 		{
-			minishell->exit = 1;
 			if (execve(path, new, ft_file_dup(env, minishell)) == -1)
 				ft_error2(minishell, 6, new[0]);
 		}

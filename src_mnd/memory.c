@@ -6,7 +6,7 @@
 /*   By: rdoukali <rdoukali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/22 13:20:04 by kmohamed          #+#    #+#             */
-/*   Updated: 2023/05/14 23:36:48 by rdoukali         ###   ########.fr       */
+/*   Updated: 2023/05/29 21:44:51 by rdoukali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,18 +86,3 @@ void	free_all_mem(void **p_head)
 	}
 	*p_head = NULL;
 }
-
-// void display_memory(void *p_head)
-// {
-// 	t_memory_block	*temp;
-// 	int i = 1;
-// 	printf("\t=====[Heap Allocations]====\n");
-// 	temp = p_head;
-// 	while (temp != NULL)
-// 	{
-// 		printf("block_%d/%p adresse = %p\n", i, temp, temp->adresse);
-// 		temp = temp->next;
-// 		i++;
-// 	}
-// 	printf("\t===========================\n");
-// }

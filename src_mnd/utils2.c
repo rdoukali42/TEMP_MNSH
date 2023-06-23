@@ -6,7 +6,7 @@
 /*   By: rdoukali <rdoukali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 00:34:47 by rdoukali          #+#    #+#             */
-/*   Updated: 2023/05/16 23:40:55 by rdoukali         ###   ########.fr       */
+/*   Updated: 2023/05/29 21:39:24 by rdoukali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,4 +93,27 @@ char	*ft_strjoin(char const *s1, char const *s2, t_mnsh *minishell)
 	}
 	p[i] = '\0';
 	return (p);
+}
+
+int	ft_exit_status(char *line, t_mnsh *minishell)
+{
+	if (ft_strncmp(line, "exit\0", 5) == 0)
+		return (1);
+	else if (ft_strncmp(line, "exit 0", 6) == 0)
+		return (1);
+	else if (ft_strncmp(line, "exit 1", 6) == 0)
+	{
+		minishell->exit = 1;
+		if (ft_strncmp(line, "exit 127", 8) == 0)
+			minishell->exit = 127;
+		else if (ft_strncmp(line, "exit 128", 8) == 0)
+			minishell->exit = 128;
+		return (1);
+	}
+	else if (ft_strncmp(line, "exit 2", 6) == 0)
+	{
+		minishell->exit = 2;
+		return (1);
+	}
+	return (0);
 }

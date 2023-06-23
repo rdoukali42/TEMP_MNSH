@@ -6,7 +6,7 @@
 /*   By: rdoukali <rdoukali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 22:26:06 by rdoukali          #+#    #+#             */
-/*   Updated: 2023/05/14 23:43:52 by rdoukali         ###   ########.fr       */
+/*   Updated: 2023/05/29 18:34:14 by rdoukali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ int	ft_check_next(char *line, int *i)
 
 void	ft_mult_loop(char *line, t_mnsh *minishell)
 {
-	int	fd;
 	int	i;
 	int	nb;
 	int	a;
@@ -48,9 +47,9 @@ void	ft_mult_loop(char *line, t_mnsh *minishell)
 		tmp = ft_check_next(line, &a);
 		if (tmp == 2)
 			ft_double_greater(ft2_word_after_sign(line, '>',
-					i, minishell), fd);
+					i, minishell));
 		else if (tmp == 1)
-			ft_greather(ft2_word_after_sign(line, '>', i, minishell), fd);
+			ft_greather(ft2_word_after_sign(line, '>', i, minishell));
 		i++;
 	}
 	return ;
@@ -81,7 +80,6 @@ char	**ft_exre_norm(char *line, char **env, t_mnsh *minishell)
 char	**ft_exec_redir(char *line, char **env, t_mnsh *minishell)
 {
 	int	id;
-	int	fd;
 	int	count;
 
 	count = 0;

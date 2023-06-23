@@ -6,7 +6,7 @@
 /*   By: rdoukali <rdoukali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 20:55:49 by rdoukali          #+#    #+#             */
-/*   Updated: 2023/05/18 21:57:31 by rdoukali         ###   ########.fr       */
+/*   Updated: 2023/05/29 20:19:26 by rdoukali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,13 @@ int	exit_cmp(char *str)
 
 void	sin_int_handler(int sig_num)
 {
+	(void) sig_num;
 	exit(0);
 }
 
 void	sin_term_handler(int sig_num)
 {
+	(void) sig_num;
 	exit(0);
 }
 
